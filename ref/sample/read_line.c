@@ -1,3 +1,5 @@
+// cc -lreadline source.c
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -10,7 +12,7 @@ int main()
 
 	while (1)
 	{
-		line = readline("> ");
+		line = readline("minishell$ ");
 		if (line == NULL || strlen(line) == 0)
 		{
 			free(line);
@@ -20,7 +22,7 @@ int main()
 		add_history(line);
 		free(line);
 	}
-	printf("exit\n");
+	printf("%s\n", line);
 	return 0;
 }
 

@@ -4,6 +4,11 @@
 #define NO 0
 #define YES 1
 
+char	*get_string(char const *str, char *const *ev)
+{
+	
+}
+
 int	main(int ac, char **av, char **ev)
 {
 	int	nl;
@@ -28,10 +33,11 @@ int	main(int ac, char **av, char **ev)
 			else
 				nl = YES;
 		}
-		printf ("%s", av[i]);
+		//printf ("%s", av[i]);
+		printf ("%s", ex_string());
 		i++;
 		if (i < ac)
-			printf(" ");
+			write(1, " ", 1);
 	}
 	if (nl == YES)
 		printf("\n");

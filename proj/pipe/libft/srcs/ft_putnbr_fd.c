@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/19 19:43:03 by keitotak          #+#    #+#             */
+/*   Updated: 2025/10/23 19:29:42 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "libft.h"
 
-bool	include_quote(char *str)
+void	ft_putnbr_fd(int n, int fd)
 {
-	while (*str)
+	if (n == INT_MIN)
 	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	return (false);
-}
-
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n *= -1;
+	}
+	if (n < 10)
+	{
+		ft_putchar_fd('0' + n, fd);
+		return ;
+	}
+	ft_putnbr_fd(n / 10, fd);
+	ft_putnbr_fd(n % 10, fd);
 }

@@ -6,11 +6,11 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 20:34:18 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:00:32 by keitotak         ###   ########.fr       */
+/*   Updated: 2025/12/17 18:22:25 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static int	status_code(int status)
 {
@@ -23,19 +23,25 @@ static int	status_code(int status)
 	return (code);
 }
 
-int	wait_for_children(t_pipex *p)
+int	wait_for_children(int *pidarr, int nbr)
 {
 	int	wstatus;
+	int	res;
+	int	i;
 
-	if (waitpid(p->pid1, NULL, 0) == error)
+	i = 0;
+	while (i < nbr)
 	{
-		perror("waitpid");
-		return (failure);
-	}
-	if (waitpid(p->pid2, &wstatus, 0) == error)
-	{
-		perror("waitpid");
-		return (failure);
+		if (i == nbr - 1)
+			res = waitpid(pidarr[i], &wstatus, 0);
+		else
+			res = waitpid(pidarr[i], NULL, 0);
+		if (res == error)
+		{
+			perror("waitpid");
+			return (failure);
+		}
+		i++;
 	}
 	return (status_code(wstatus));
 }

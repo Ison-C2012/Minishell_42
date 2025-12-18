@@ -4,11 +4,11 @@ RULE := all
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-IFLAGS := -I includes -I ../libft/header
+IFLAGS := -I includes -I libft/includes
 
 SRCDIR := srcs
 OBJDIR := objs
-ARCDIR := ../libft
+ARCDIR := libft
 
 SRCS	:= 	main.c \
 			process.c \
@@ -42,11 +42,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	@make -C $(ARCDIR) clean
-	rm -rf $(OBJDIR)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
 	@make -C $(ARCDIR) fclean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

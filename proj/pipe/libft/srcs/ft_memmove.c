@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/19 19:56:37 by keitotak          #+#    #+#             */
+/*   Updated: 2025/10/27 15:45:27 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "libft.h"
 
-bool	include_quote(char *str)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
-	}
-	return (false);
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	if (dest <= src)
+		return (ft_memcpy(dest, src, n));
+	if (src == NULL)
+		return (dest);
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	while (n--)
+		d[n] = s[n];
+	return (dest);
 }
 
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
-}
+/* n must not be greater than src_size and dest_size. */

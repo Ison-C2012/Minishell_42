@@ -18,7 +18,7 @@ int main()
 			free(line);
 			break;
 		}
-		printf("line is '%s'\n", line);
+		printf("line : %s\n", line);
 		add_history(line);
 		free(line);
 	}

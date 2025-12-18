@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/26 17:16:58 by keitotak          #+#    #+#             */
+/*   Updated: 2025/11/21 00:18:34 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "libft_bonus.h"
 
-bool	include_quote(char *str)
+int	ft_lstsize(t_list *lst)
 {
-	while (*str)
+	int	size;
+
+	size = 1;
+	while (lst->next != NULL)
 	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
+		size++;
+		lst = lst->next;
 	}
-	return (false);
-}
-
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	return (size);
 }

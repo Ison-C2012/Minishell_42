@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/20 14:04:02 by keitotak          #+#    #+#             */
+/*   Updated: 2025/10/27 16:28:21 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+/* What for is this ft? */
 
-bool	include_quote(char *str)
+#include "libft.h"
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	while (*str)
+	char			*str;
+	unsigned int	i;
+
+	str = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	return (false);
-}
-
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	str[i] = '\0';
+	return (str);
 }

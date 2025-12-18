@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/20 11:19:19 by keitotak          #+#    #+#             */
+/*   Updated: 2025/10/27 16:19:07 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "libft.h"
 
-bool	include_quote(char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
-	}
-	return (false);
-}
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*j;
 
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	j = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
+	if (j == NULL)
+		return (NULL);
+	ft_strlcpy(j, s1, s1_len + 1);
+	ft_strlcat(j, s2, s1_len + s2_len + 1);
+	return (j);
 }

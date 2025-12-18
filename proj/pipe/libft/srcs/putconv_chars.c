@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   putconv_chars.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/11/09 19:05:07 by keitotak          #+#    #+#             */
+/*   Updated: 2025/11/10 01:45:59 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "ft_printf.h"
 
-bool	include_quote(char *str)
+int	putconv_char(char c)
 {
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
-	}
-	return (false);
+	ft_putchar_fd(c, STDOUT);
+	return (1);
 }
 
-int	handle_noexist_cmd(char **cmdset)
+int	putconv_str(char *str)
 {
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	if (str == NULL)
+		str = "(null)";
+	ft_putstr_fd(str, STDOUT);
+	return (ft_strlen(str));
 }

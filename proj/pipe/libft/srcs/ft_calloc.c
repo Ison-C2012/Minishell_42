@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 17:56:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/06 16:46:49 by keitotak         ###   ########.fr       */
+/*   Created: 2025/10/16 21:51:17 by keitotak          #+#    #+#             */
+/*   Updated: 2025/12/02 11:22:46 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "libft.h"
 
-bool	include_quote(char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-			return (true);
-		str++;
-	}
-	return (false);
-}
+	void	*mem;
+	size_t	m_size;
 
-int	handle_noexist_cmd(char **cmdset)
-{
-	ft_putstr_fd(cmdset[0], 2);
-	ft_putendl_fd(": command not found", 2);
-	free_arrs_ret_s(cmdset, NULL);
-	return (127);
+	if (size != 0 && nmemb > SIZE_MAX / size)
+		return (NULL);
+	m_size = nmemb * size;
+	mem = malloc(m_size);
+	if (mem == NULL)
+		return (NULL);
+	ft_bzero(mem, m_size);
+	return (mem);
 }

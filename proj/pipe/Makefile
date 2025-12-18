@@ -4,11 +4,11 @@ RULE := all
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-IFLAGS := -I includes -I libft/includes
+IFLAGS := -I includes -I ../libft/header
 
 SRCDIR := srcs
 OBJDIR := objs
-ARCDIR := libft
+ARCDIR := ../libft
 
 SRCS	:= 	main.c \
 			process.c \

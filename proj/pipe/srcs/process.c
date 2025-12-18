@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 22:26:17 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/17 18:54:03 by keitotak         ###   ########.fr       */
+/*   Updated: 2025/12/18 13:48:23 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	child_in(t_pipex *p, char **ev)
 		close(p->p_fd[1]);
 		exit(EXIT_FAILURE);
 	}
-	if (dup2(i_fd, STDIN) == error)
+	if (dup2(i_fd, STDIN_FILENO) == error)
 	{
 		perror("dup2");
 		exit_close_fds(i_fd, p->p_fd[1], EXIT_FAILURE);
 	}
-	if (dup2(p->p_fd[1], STDOUT) == error)
+	if (dup2(p->p_fd[1], STDOUT_FILENO) == error)
 	{
 		perror("dup2");
 		exit_close_fds(i_fd, p->p_fd[1], EXIT_FAILURE);
@@ -47,12 +47,12 @@ static void	child_in(t_pipex *p, char **ev)
 static void	child_mid(t_pipex *p, char **ev)
 {
 
-	if (dup2(p->p_fd[0], STDIN) < 0)
+	if (dup2(p->p_fd[0], STDIN_FILENO) < 0)
 	{
 		perror("dup2");
 		exit_close_fds(p->p_fd[0], p->p_fd[1], EXIT_FAILURE);
 	}
-	if (dup2(p->p_fd[1], STDOUT) < 0)
+	if (dup2(p->p_fd[1], STDOUT_FILENO) < 0)
 	{
 		perror("dup2");
 		exit_close_fds(p->p_fd[0], p->p_fd[1], EXIT_FAILURE);
@@ -72,12 +72,12 @@ static void	child_out(t_pipex *p, char **ev)
 		close(p->p_fd[0]);
 		exit(EXIT_FAILURE);
 	}
-	if (dup2(p->p_fd[0], STDIN) < 0)
+	if (dup2(p->p_fd[0], STDIN_FILENO) < 0)
 	{
 		perror("dup2");
 		exit_close_fds(o_fd, p->p_fd[0], EXIT_FAILURE);
 	}
-	if (dup2(o_fd, STDOUT) < 0)
+	if (dup2(o_fd, STDOUT_FILENO) < 0)
 	{
 		perror("dup2");
 		exit_close_fds(o_fd, p->p_fd[0], EXIT_FAILURE);
@@ -87,12 +87,11 @@ static void	child_out(t_pipex *p, char **ev)
 
 int	fork_processes(t_pipex *p, char **ev, int n)
 {
-	p->child_pnbr++;
 	p->pidarr[n] = fork();
 	if (p->pidarr[n] < 0)
 	{
 		perror("fork");
-		return (-1);
+		return (error);
 	}
 	if (p->pidarr[n] == 0)
 	{
@@ -103,8 +102,5 @@ int	fork_processes(t_pipex *p, char **ev, int n)
 		else
 			child_mid(p, ev);
 	}
-	p->cmdlst = p->cmdlst->next;
-	if (p->cmdlst != NULL)
-		fork_processes(p, ev, n + 1);
 	return (success);
 }

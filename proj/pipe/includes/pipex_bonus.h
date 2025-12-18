@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 14:58:59 by keitotak          #+#    #+#             */
-/*   Updated: 2025/12/17 17:08:17 by keitotak         ###   ########.fr       */
+/*   Updated: 2025/12/18 13:55:16 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define PIPEX_H
 
 # include "libft.h"
-# include "libft_bonus.h"
-# include "ft_printf.h"
+# include "ftprintf.h"
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -48,9 +47,9 @@ typedef struct s_pipex
 {
 	char	*infile;
 	char	*outfile;
-	int		p_fd[2];
 	int		forkcnt;
-	int		child_pnbr;
+	int		prev_pipefd[2];
+	int		next_pipefd[2];
 	t_list	*cmdlst;
 	int		*pidarr;
 }	t_pipex;
